@@ -1,5 +1,5 @@
 # Todoenbici
-Full-Stack Application
+Full-Stack Application - Still under development 🚧
 
 Final Product: [TodoEnBici](https://todoenbici.vercel.app/) 
 
