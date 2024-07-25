@@ -1,0 +1,22 @@
+{
+    "HomePage": {
+        "heroinSectionTitle": "VUELTA AL MUNDO EN CARGOBIKE",
+        "buttonYoutube": "Pedalea conmigo",
+        "titleBiography": "¿Quien Soy?",
+        "textBiography": "¡Hola aventureros! Soy Carlos Vasquez, un apasionado cicloviajero colombiano en busca de experiencias únicas sobre dos ruedas. Mi misión es demostrar que en bicicleta se puede llegar a cualquierrincón, descubriendo la magia de cada lugar a un ritmo tranquilo. Con mi pedalada, quiero inspirarte a explorar el mundo, conectarte con la naturaleza y disfrutar de la libertad que solo una bicicleta puede ofrecer. Únete a mi viaje y descubre la emoción de explorar cada kilómetro con el viento como compañero.",
+        "titleNetworks": "Redes",
+        "titleExplore": "Explora y disfuta",
+        "titlePartners": "Colaboradores",
+        "textVisitInstagram": "Visita mi instagram"
+    },
+    "achievements_component": {
+        "textkmTours": "km recorridos",
+        "textPedaling": "pedaleadas",
+        "textSupportPoints": "puntos de apoyo"
+    },
+    "videoComponent": {
+        "textWarning": "¿Te gustaría conocer el mundo desde una perspectiva diferente?",
+        "titleStreaming": "Streamings",
+        "titleYoutube": "Mis Videos"
+    }
+}

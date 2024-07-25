@@ -21,12 +21,16 @@ import tripcode_logo from "@/assets/tripcode_logo_white.png";
 import VideoComponent from "@/components/video/VideoComponent";
 import AutoSliderLeft from "@/components/slider/autoSliderLeft";
 import { useGlobalContext } from "@/components/context/ContextDashboard";
+import { useTranslations } from "next-intl";
 
 function Home() {
   const router = useRouter();
   const isBigScreen = useMediaQuery({ query: "(min-width: 900px)" });
 
+  const t = useTranslations("HomePage");
+
   const { user } = useGlobalContext();
+
   return (
     <>
       <Navbar isUser={user?.rol == "streamer" ? true : false} />
@@ -38,7 +42,9 @@ function Home() {
               onInit={(typewriter) => {
                 typewriter
                   .typeString(
-                    "<span style=\"font-family: 'Mulish', sans-serif;\">VUELTA AL MUNDO EN CARGOBIKE</span>"
+                    `<span style=\"font-family: 'Mulish', sans-serif;\">${t(
+                      "heroinSectionTitle"
+                    )}</span>`
                   )
                   .pauseFor(2000)
                   .start();
@@ -56,7 +62,7 @@ function Home() {
               <div className={styles.realBtnIconBox}>
                 <FaYoutube />
               </div>
-              <p>Pedalea conmigo</p>
+              <p>{t("buttonYoutube")}</p>
             </div>
           </div>
         </div>
@@ -70,20 +76,11 @@ function Home() {
         </div>
         <div className={styles.ceo_info}>
           <div className={styles.subceo_info}>
-            <h2>¿Quien Soy?</h2>
-            <p className={styles.textInfoCEO}>
-              ¡Hola aventureros! Soy Carlos Vasquez, un apasionado cicloviajero
-              colombiano en busca de experiencias únicas sobre dos ruedas. Mi
-              misión es demostrar que en bicicleta se puede llegar a cualquier
-              rincón, descubriendo la magia de cada lugar a un ritmo tranquilo.
-              Con mi pedalada, quiero inspirarte a explorar el mundo, conectarte
-              con la naturaleza y disfrutar de la libertad que solo una
-              bicicleta puede ofrecer. Únete a mi viaje y descubre la emoción de
-              explorar cada kilómetro con el viento como compañero.
-            </p>
+            <h2>{t("titleBiography")}</h2>
+            <p className={styles.textInfoCEO}>{t("textBiography")}</p>
             <div className={styles.redBox}>
               <div className={styles.subRedBox}>
-                <p>Redes</p>
+                <p>{t("titleNetworks")}</p>
                 <div className={styles.pasarellIconss}>
                   <div className={styles.centerIcons}>
                     <FaYoutube
@@ -128,18 +125,9 @@ function Home() {
 
       <main className={styles.Main02}>
         {isBigScreen ? (
-          <h1 className={styles.services_title}>Explora y disfuta</h1>
+          <h1 className={styles.services_title}>{t("titleExplore")}</h1>
         ) : null}
         <div className={styles.view001}>
-          {/* <div
-            className={styles.boxServices}
-            onClick={() => {
-              router.push("/shop");
-            }}
-          >
-            <Image className={styles.iconoBanner} src={banner01} alt="bn1" />
-          </div> */}
-
           <div
             className={styles.boxServices}
             onClick={() => {
@@ -174,7 +162,7 @@ function Home() {
       </section>
 
       <div className={styles.collab}>
-        <p className={styles.textPatro}>Colaboradores</p>
+        <p className={styles.textPatro}>{t("titlePartners")}</p>
         <div className={styles.cubeLogos}>
           <Image
             onClick={() => router.push("https://tripcode.vercel.app/")}
@@ -197,7 +185,7 @@ function Home() {
             <div className={styles.boxIconRed}>
               <FaInstagram size={40} />
             </div>
-            <p className={styles.textInstagramBtn}>Visita mi instagram</p>
+            <p className={styles.textInstagramBtn}>{t("textVisitInstagram")}</p>
           </div>
         </div>
       </div>
