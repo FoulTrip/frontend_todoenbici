@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { MusicData } from "@/app/music/types";
+import { MusicData } from "./types";
 import styles from "./artista.module.css";
 import Image from "next/image";
 
