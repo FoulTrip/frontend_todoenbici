@@ -13,6 +13,7 @@ import { useGlobalContext } from "@/components/context/ContextDashboard";
 function OneContent() {
   const [selectLogin, setSelectLogin] = useState("signin");
   const { user } = useGlobalContext();
+
   return (
     <>
       <Navbar isUser={user?.rol == "streamer" ? true : false} />

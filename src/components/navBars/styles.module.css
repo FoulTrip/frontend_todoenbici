@@ -47,9 +47,15 @@
   cursor: pointer;
 }
 
+.selectLenguage {
+  background: #5d5d5d;
+  border-radius: 8px;
+}
+
 .account {
   display: flex;
   flex-basis: 400px;
+  gap: 5px;
   flex-grow: 1;
   justify-content: flex-end;
 }

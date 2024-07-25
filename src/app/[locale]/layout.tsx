@@ -5,12 +5,18 @@ import { Analytics } from "@vercel/analytics/react";
 import { GlobalProvider } from "@/components/context/ContextDashboard";
 import WsProvider from "./providerWs";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "TodoEnBici",
   description: "development by TripCode",
 };
+
+const locales = ["es", "pt"];
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
   children,
@@ -20,6 +26,7 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages();
+  unstable_setRequestLocale(locale);
 
   return (
     <html lang={locale}>
@@ -27,7 +34,7 @@ export default async function RootLayout({
       <Analytics />
       <WsProvider>
         <NextIntlClientProvider messages={messages}>
-          <GlobalProvider>
+          <GlobalProvider locale={locale}>
             <body>{children}</body>
           </GlobalProvider>
         </NextIntlClientProvider>
