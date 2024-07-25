@@ -115,7 +115,7 @@ function Navbar({ isUser }: { isUser: boolean }) {
             {openDropDown ? null : (
               <AiOutlineMenu
                 size={20}
-                className={openDropDown}
+                className={styles.openDropDown}
                 onClick={handlerDropDown}
               />
             )}
