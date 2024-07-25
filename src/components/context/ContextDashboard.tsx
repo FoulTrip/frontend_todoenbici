@@ -14,18 +14,11 @@ import { AuthUser } from "@/types/User";
 interface GlobalContextType {
   user: AuthUser | null;
   setUserData: (userData: AuthUser) => void;
-  locale: string;
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
-export function GlobalProvider({
-  children,
-  locale,
-}: {
-  children: ReactNode;
-  locale: string;
-}) {
+export function GlobalProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
@@ -41,7 +34,7 @@ export function GlobalProvider({
   };
 
   return (
-    <GlobalContext.Provider value={{ user, setUserData, locale }}>
+    <GlobalContext.Provider value={{ user, setUserData }}>
       {children}
     </GlobalContext.Provider>
   );

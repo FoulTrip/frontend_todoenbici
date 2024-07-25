@@ -34,7 +34,7 @@ export default async function RootLayout({
       <Analytics />
       <WsProvider>
         <NextIntlClientProvider messages={messages}>
-          <GlobalProvider locale={locale}>
+          <GlobalProvider>
             <body>{children}</body>
           </GlobalProvider>
         </NextIntlClientProvider>
