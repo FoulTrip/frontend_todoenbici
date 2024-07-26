@@ -5,12 +5,27 @@ export function SOCKET(
 ) {
   // console.log("A client connected!");
 
-  client.on("message", async (message) => {
-    server.clients.forEach(async (client) => {
-      if (client.readyState === (await import("ws")).WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
+  client.on("message", async (payload) => {
+    const dates = payload.toString();
+    console.log(dates);
+    const event = JSON.parse(dates);
+    console.log(event);
+
+    if (event.type == "startStream") {
+      console.log(event.data);
+
+      server.clients.forEach((receiver) => {
+        console.log(receiver);
+
+        if (receiver === client) return;
+
+        if (receiver != client && receiver.readyState === receiver.OPEN) {
+          receiver.send(
+            JSON.stringify({ type: "newStream", data: event.data })
+          );
+        }
+      });
+    }
   });
 
   client.on("close", () => {

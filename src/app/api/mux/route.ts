@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { newEvents } from "@/components/muxEvents/EventsMux";
 
 const prisma = new PrismaClient();
 const muxSigningSecret = process.env.MUX_SIGNING_SECRET; // Tu secret de Mux
@@ -8,6 +9,11 @@ const muxSigningSecret = process.env.MUX_SIGNING_SECRET; // Tu secret de Mux
 export async function POST(req: Request) {
   const body = await req.json();
   const { type, data } = body;
+
+  console.log(type, data);
+
+  const newEvent = newEvents({ type, data });
+  console.log(newEvent);
 
   // Obtener la firma del encabezado de la solicitud
   const signature = req.headers.get("mux-signature");
@@ -27,13 +33,13 @@ export async function POST(req: Request) {
       );
     }
 
-    // Crear un nuevo StreamEvent en la base de datos
-    await prisma.streamEvent.create({
-      data: {
-        eventType: type,
-        eventData: data,
-      },
-    });
+    // // Crear un nuevo StreamEvent en la base de datos
+    // await prisma.streamEvent.create({
+    //   data: {
+    //     eventType: type,
+    //     eventData: data,
+    //   },
+    // });
   }
 
   return NextResponse.json({ message: "ok" });

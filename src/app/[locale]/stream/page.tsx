@@ -8,9 +8,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 import CommentsContainer from "@/components/liveStream/liveBox/Comments";
-import Image from "next/image";
 
-import bannerStreamOffline from "@/assets/bannerStream.jpg";
 import { IoIosClose, IoMdEye } from "react-icons/io";
 import TopDonate from "@/components/liveStream/doneTop/TopDonate";
 import { useWebSocket } from "next-ws/client";
@@ -19,10 +17,29 @@ import { useMediaQuery } from "react-responsive";
 
 function StreamPage() {
   const { user } = useGlobalContext();
+  const ws = useWebSocket();
+
+  const StreamWs = useCallback(async (event: MessageEvent<Blob>) => {
+    console.log(event);
+
+    const Stream = JSON.parse(String(event.data));
+    console.log(Stream);
+
+    if (Stream.type == "startStream") {
+      const response = await axios.get("/api/templayback/get");
+      setLatestTempPlaybackId(response.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    ws?.addEventListener("message", StreamWs);
+
+    return () => ws?.removeEventListener("message", StreamWs);
+  }, [StreamWs, ws]);
+
   const isCell = useMediaQuery({
     query: "(min-width: 700px)",
   });
-  const ws = useWebSocket();
   const playerRef = useRef(null);
   const [latestTempPlaybackId, setLatestTempPlaybackId] =
     useState<StreamData | null>(null);

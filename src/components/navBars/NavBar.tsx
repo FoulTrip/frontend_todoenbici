@@ -181,7 +181,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
             ) : (
               <div
                 className={styles.supaBoxAccountResponsiveDesktop}
-                onClick={() => router.push(`${locale}/auth`)}
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/auth"
+                    )
+                  )
+                }
               >
                 <div className={styles.boxAccount}>
                   <MdAccountCircle size={25} />
@@ -189,7 +197,6 @@ function Navbar({ isUser }: { isUser: boolean }) {
                 <p className={styles.username}>Cuenta</p>
               </div>
             )}
-
           </div>
         ) : (
           <div
