@@ -1,0 +1,198 @@
+"use client";
+
+import React from "react";
+import Navbar from "@/components/navBars/NavBar";
+import styles from "./page.module.css";
+import Image from "next/image";
+import { useMediaQuery } from "react-responsive";
+import LogrosComponent from "@/components/counts/Logros";
+
+import { FaYoutube, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
+import pictureCEO from "@/assets/perfil_CEO.jpg";
+import Footer from "@/components/footer/Footer";
+import Typewriter from "typewriter-effect";
+
+import banner02 from "@/assets/services_img/banner02.jpg";
+import banner06 from "@/assets/services_img/banner06.jpg";
+import banner07 from "@/assets/services_img/banner07.jpg";
+import tripcode_logo from "@/assets/tripcode_logo_white.png";
+import VideoComponent from "@/components/video/VideoComponent";
+import AutoSliderLeft from "@/components/slider/autoSliderLeft";
+import { useGlobalContext } from "@/components/context/ContextDashboard";
+import { useTranslations } from "next-intl";
+
+function Home() {
+  const router = useRouter();
+  const isBigScreen = useMediaQuery({ query: "(min-width: 900px)" });
+
+  const t = useTranslations("HomePage");
+
+  const { user } = useGlobalContext();
+
+  return (
+    <>
+      <Navbar isUser={user?.rol == "streamer" ? true : false} />
+
+      <main className={styles.banner}>
+        <div>
+          <h2 className={styles.bannerPhrase}>
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(
+                    `<span style=\"font-family: 'Mulish', sans-serif;\">${t(
+                      "heroinSectionTitle"
+                    )}</span>`
+                  )
+                  .pauseFor(2000)
+                  .start();
+              }}
+            />
+          </h2>
+
+          <div className={styles.barBtnYoutube}>
+            <div
+              className={styles.realBtnYtb}
+              onClick={() =>
+                router.push("https://www.youtube.com/@TodoenBicicleta")
+              }
+            >
+              <div className={styles.realBtnIconBox}>
+                <FaYoutube />
+              </div>
+              <p>{t("buttonYoutube")}</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <LogrosComponent />
+
+      <main className={styles.aboutMain}>
+        <div className={styles.boxImage}>
+          <Image className={styles.iconCEO} src={pictureCEO} alt="ceo" />
+        </div>
+        <div className={styles.ceo_info}>
+          <div className={styles.subceo_info}>
+            <h2>{t("titleBiography")}</h2>
+            <p className={styles.textInfoCEO}>{t("textBiography")}</p>
+            <div className={styles.redBox}>
+              <div className={styles.subRedBox}>
+                <p>{t("titleNetworks")}</p>
+                <div className={styles.pasarellIconss}>
+                  <div className={styles.centerIcons}>
+                    <FaYoutube
+                      onClick={() =>
+                        router.push("https://www.youtube.com/@TodoenBicicleta")
+                      }
+                      size={25}
+                      className={styles.iconYoutube}
+                    />
+                    <FaFacebook
+                      size={25}
+                      onClick={() =>
+                        router.push(
+                          "https://www.facebook.com/todoenbicicletacolombia"
+                        )
+                      }
+                      className={styles.iconFacebook}
+                    />
+                    <FaInstagram
+                      size={25}
+                      onClick={() =>
+                        router.push("https://www.instagram.com/Todoenbicicleta")
+                      }
+                      className={styles.iconInstagram}
+                    />
+                    <FaTiktok
+                      size={25}
+                      onClick={() =>
+                        router.push(
+                          "https://www.tiktok.com/@todo.enbicicleta?fbclid=IwAR3-k2G7QUT_ECgyOKXrtgbjl7eVZT8yPutgUgPV8JKchvp8t2p6nYgOCjs"
+                        )
+                      }
+                      className={styles.iconTiktok}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <main className={styles.Main02}>
+        {isBigScreen ? (
+          <h1 className={styles.services_title}>{t("titleExplore")}</h1>
+        ) : null}
+        <div className={styles.view001}>
+          <div
+            className={styles.boxServices}
+            onClick={() => {
+              router.push("/ruta");
+            }}
+          >
+            <Image className={styles.iconoBanner} src={banner02} alt="bn1" />
+          </div>
+
+          <div
+            className={styles.boxServices}
+            onClick={() => {
+              router.push("/cicloviajero");
+            }}
+          >
+            <Image className={styles.iconoBanner} src={banner06} alt="bn1" />
+          </div>
+
+          <div
+            className={styles.boxServices}
+            onClick={() => {
+              router.push("/guia");
+            }}
+          >
+            <Image className={styles.iconoBanner} src={banner07} alt="bn1" />
+          </div>
+        </div>
+      </main>
+
+      <section className={styles.containerVideo}>
+        <VideoComponent />
+      </section>
+
+      <div className={styles.collab}>
+        <p className={styles.textPatro}>{t("titlePartners")}</p>
+        <div className={styles.cubeLogos}>
+          <Image
+            onClick={() => router.push("https://tripcode.vercel.app/")}
+            className={styles.iconLogo}
+            src={tripcode_logo}
+            alt="tripcode"
+          />
+        </div>
+      </div>
+
+      <div className={styles.bannerInstagram}>
+        <AutoSliderLeft />
+        <div className={styles.btnInstagram}>
+          <div
+            className={styles.centerBtnInstagram}
+            onClick={() =>
+              router.push("https://www.instagram.com/Todoenbicicleta")
+            }
+          >
+            <div className={styles.boxIconRed}>
+              <FaInstagram size={40} />
+            </div>
+            <p className={styles.textInstagramBtn}>{t("textVisitInstagram")}</p>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
+}
+
+export default Home;

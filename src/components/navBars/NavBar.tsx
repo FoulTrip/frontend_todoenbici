@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { useMediaQuery } from "react-responsive";
 import Avatar from "react-avatar";
 
 import iconLogo from "@/assets/logo_page.png";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../context/ContextDashboard";
 
@@ -16,10 +15,9 @@ import { IoMdCloseCircle, IoIosMusicalNotes } from "react-icons/io";
 import { FaMap, FaBicycle, FaBed } from "react-icons/fa";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { MdAccountCircle } from "react-icons/md";
-
-// interface NavBarProps {
-//   openModal: (content: React.ReactNode) => void;
-// }
+import ChangeLen from "./ChangeLen";
+import { getLocaleFromLanguage } from "../handlers/GetLocation";
+import { convertLocaleToPath } from "../handlers/convertPathLocation";
 
 function Navbar({ isUser }: { isUser: boolean }) {
   const router = useRouter();
@@ -30,6 +28,14 @@ function Navbar({ isUser }: { isUser: boolean }) {
   const handlerDropDown = () => {
     setOpenDropDown(!openDropDown);
   };
+
+  const [locale, setLocale] = useState("");
+
+  useEffect(() => {
+    const userLanguage = window.navigator.language;
+    const localiceValue = getLocaleFromLanguage(userLanguage);
+    setLocale(localiceValue);
+  }, []);
 
   return (
     <>
@@ -45,38 +51,106 @@ function Navbar({ isUser }: { isUser: boolean }) {
         {responsive ? (
           <div className={styles.account}>
             <div className={styles.subAccount}>
-              <Link href={"/stream"} className={styles.login}>
-               Streaming
-              </Link>
+              <div
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/stream"
+                    )
+                  )
+                }
+                className={styles.login}
+              >
+                Streaming
+              </div>
             </div>
+
             <div className={styles.subAccount}>
-              <Link href={"/music"} className={styles.login}>
+              <div
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/music"
+                    )
+                  )
+                }
+                className={styles.login}
+              >
                 Musica
-              </Link>
+              </div>
             </div>
+
             <div className={styles.subAccount}>
-              <Link href={"/ruta"} className={styles.login}>
+              <div
+                onClick={() =>
+                  convertLocaleToPath(
+                    window.navigator.language,
+                    locale,
+                    "/ruta"
+                  )
+                }
+                className={styles.login}
+              >
                 Ruta
-              </Link>
+              </div>
             </div>
 
             <div className={styles.subAccount}>
-              <Link href={"/cicloviajero"} className={styles.login}>
+              <div
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/cicloviajero"
+                    )
+                  )
+                }
+                className={styles.login}
+              >
                 Cicloviajero
-              </Link>
+              </div>
             </div>
 
             <div className={styles.subAccount}>
-              <Link href={"/books"} className={styles.login}>
+              <div
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/books"
+                    )
+                  )
+                }
+                className={styles.login}
+              >
                 Libros
-              </Link>
+              </div>
             </div>
+
+            <ChangeLen />
 
             {user && user.rol == "streamer" ? (
               <div className={styles.subAccount}>
-                <Link href={"/profile/panel"} className={styles.login}>
+                <div
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/profile/panel"
+                      )
+                    )
+                  }
+                  className={styles.login}
+                >
                   Panel
-                </Link>
+                </div>
               </div>
             ) : null}
 
@@ -84,7 +158,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
               <>
                 <div
                   className={styles.supaBoxAccount}
-                  onClick={() => router.push(`/profile/${user.username}`)}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/profile/${user.username}"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.boxAccount}>
                     <Avatar
@@ -99,7 +181,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
             ) : (
               <div
                 className={styles.supaBoxAccountResponsiveDesktop}
-                onClick={() => router.push("/auth")}
+                onClick={() =>
+                  router.push(
+                    convertLocaleToPath(
+                      window.navigator.language,
+                      locale,
+                      "/auth"
+                    )
+                  )
+                }
               >
                 <div className={styles.boxAccount}>
                   <MdAccountCircle size={25} />
@@ -115,7 +205,7 @@ function Navbar({ isUser }: { isUser: boolean }) {
             {openDropDown ? null : (
               <AiOutlineMenu
                 size={20}
-                className={openDropDown}
+                className={styles.openDropDown}
                 onClick={handlerDropDown}
               />
             )}
@@ -148,7 +238,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
                       ) : (
                         <div
                           className={styles.supaBoxAccountResponsive}
-                          onClick={() => router.push("/auth")}
+                          onClick={() =>
+                            router.push(
+                              convertLocaleToPath(
+                                window.navigator.language,
+                                locale,
+                                "/auth"
+                              )
+                            )
+                          }
                         >
                           <div className={styles.boxAccount}>
                             <MdAccountCircle size={25} />
@@ -164,6 +262,7 @@ function Navbar({ isUser }: { isUser: boolean }) {
                     className={styles.iconCloseDrop}
                   />
                 </div>
+
                 <li
                   className={styles.dropdown_list}
                   onClick={() => router.push("/")}
@@ -176,7 +275,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
 
                 <li
                   className={styles.dropdown_list}
-                  onClick={() => router.push("/music")}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/music"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.dropdown_link}>
                     <IoIosMusicalNotes />
@@ -186,7 +293,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
 
                 <li
                   className={styles.dropdown_list}
-                  onClick={() => router.push("/ruta")}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/ruta"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.dropdown_link}>
                     <FaMap />
@@ -196,7 +311,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
 
                 <li
                   className={styles.dropdown_list}
-                  onClick={() => router.push("/stream")}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/stream"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.dropdown_link}>
                     <FaBicycle />
@@ -206,7 +329,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
 
                 <li
                   className={styles.dropdown_list}
-                  onClick={() => router.push("/cicloviajero")}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/cicloviajero"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.dropdown_link}>
                     <FaBed />
@@ -218,7 +349,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
 
                 <li
                   className={styles.dropdown_list}
-                  onClick={() => router.push("/books")}
+                  onClick={() =>
+                    router.push(
+                      convertLocaleToPath(
+                        window.navigator.language,
+                        locale,
+                        "/books"
+                      )
+                    )
+                  }
                 >
                   <div className={styles.dropdown_link}>
                     <PiUsersThreeFill />
@@ -229,7 +368,15 @@ function Navbar({ isUser }: { isUser: boolean }) {
                 {user && user.rol == "streamer" ? (
                   <li
                     className={styles.dropdown_list}
-                    onClick={() => router.push("/profile/panel")}
+                    onClick={() =>
+                      router.push(
+                        convertLocaleToPath(
+                          window.navigator.language,
+                          locale,
+                          "/profile/panel"
+                        )
+                      )
+                    }
                   >
                     <div className={styles.dropdown_link}>
                       <PiUsersThreeFill />

@@ -1,11 +1,14 @@
 import React from "react";
-import styles from "../../app/page.module.css";
+import styles from "@/app/[locale]/page.module.css";
 
 import { MdDirectionsBike } from "react-icons/md";
 import { FaRoad, FaHandsHelping } from "react-icons/fa";
 import ContadorAnimado from "../Bitacora/contador_animado/page";
+import { useTranslations } from "next-intl";
 
 function LogrosComponent() {
+  const t = useTranslations("achievements_component");
+
   return (
     <>
       <main className={styles.biografic}>
@@ -16,25 +19,27 @@ function LogrosComponent() {
                 <MdDirectionsBike className={styles.iconRoad} size={70} />
               </div>
               <ContadorAnimado numeroFinal={10000} />
-              <p className={styles.textInfoCard}>km recorridos</p>
+              <p className={styles.textInfoCard}>{t("textkmTours")}</p>
             </div>
           </div>
+
           <div className={styles.infoCard}>
             <div className={styles.centerInfoCard}>
               <div className={styles.infoIcon}>
                 <FaRoad className={styles.iconCity} size={70} />
               </div>
               <ContadorAnimado numeroFinal={8000000} />
-              <p className={styles.textInfoCard}>pedaleadas</p>
+              <p className={styles.textInfoCard}>{t("textPedaling")}</p>
             </div>
           </div>
+
           <div className={styles.infoCard}>
             <div className={styles.centerInfoCard}>
               <div className={styles.infoIcon}>
                 <FaHandsHelping className={styles.iconHelping} size={70} />
               </div>
               <ContadorAnimado numeroFinal={67} />
-              <p className={styles.textInfoCard}>puntos de apoyo</p>
+              <p className={styles.textInfoCard}>{t("textSupportPoints")}</p>
             </div>
           </div>
         </section>

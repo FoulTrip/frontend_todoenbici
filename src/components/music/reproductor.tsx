@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Howl } from "howler";
-import { Song } from "../../app/music/types";
+import { Song } from "@/app/[locale]/music/types";
 import styles from "./reproductor.module.css";
 
 import { IoPlayCircleOutline, IoPauseCircleOutline } from "react-icons/io5";
